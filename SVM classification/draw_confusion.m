@@ -1,0 +1,22 @@
+%% compute and visualize the confusion matrix
+clear;
+clc;
+load testclass_result.mat;
+predict_label=test_result(1,:)';
+% name_class={'agriculture';'airplane';'baseball diamond';'beach';'buildings';'chaparral';'dense residential';'forest';'freeway';'golf course';'harbor';'intersection';'medium residential';'mobile home park';'overpass';'parking lot';'river';'runway'; 'sparse residential';'storage tanks';'tennis cout'};
+% num_in_class=[20;20;20;20;20;20;20;20;20;20;20;20;20;20;20;20;20;20;20;20;20];
+% name_class={'agriculture';'commercial';'harbor';'idle land';'industrial';'meadow';'overpass';'park';'pond';'residential';'river';'water'};
+% num_in_class=[100;100;100;100;100;100;100;100;100;100;100;100];
+test_num=560;
+num_in_class=test_num*ones(45,1);
+name_class={'airplane'; 'airport'; 'baseball diamond'; 'basketball court'; 'beach'; 'bridge'; 'chaparral'; 'church'; 'circular farmland'; 'cloud'; 'commercial area';
+'dense residential'; 'desert'; 'forest'; 'freeway'; 'golf course'; 'ground track feld'; 'harbor'; 'industrial area'; 'intersection'; 'island'; 'lake';
+'meadow'; 'medium residential'; 'mobile home park'; 'mountain'; 'overpass'; 'palace'; 'parking lot'; 'railway'; 'railway station'; 'rectangular farmland'; 'river'; 'roundabout'; 'runway'; 'sea ice'; 'ship';
+'snowberg'; 'sparse residential'; 'stadium'; 'storage tank'; 'tennis court'; 'terrace'; 'thermal power station'; 'wetland'};
+%  name_class={'dense residential';'idle';'industrial';'medium residential';'parking lot';'commercial';'vegetation';'water'};
+%  name_class={'agricultural'; 'airplane'; 'artificial lawn'; 'beach'; 'building'; 'chaparral'; 'cloud'; 'container'; 'dense residential'; ' factory';'forest'; 'harbor'; 'medium density residential'; 'ocean'; 'parking lot'; 'river'; 'road'; 'runway'; 'sparse residential';'storage tanks'};
+% num_in_class=30*ones(20,1);
+%   num_in_class=[75;75;75;75;75;75;75;75;75;75;75;75;75;75;75;75;75;75;75;75];
+%  num_in_class=[30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30];
+% [confusion_matrix]=compute_confusion_matrix(predict_label,num_in_class,name_class);
+[confusion_matrix]=compute_fp(predict_label,num_in_class,name_class,test_num);

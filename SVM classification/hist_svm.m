@@ -1,0 +1,24 @@
+precision_mean=[];
+K = hist_isect(train, train);
+K1 = [(1:size(train,1))', K];
+bestcv = 0;
+bestc=100;
+bestg=1/300;
+options=sprintf('-s 0 -t 4 -c %f -b 1 -g %f ',bestc,bestg); 
+model_p = svmtrain(train_label,K1,options);
+k=hist_isect(test,train);
+K2=[(1:size(test,1))',k];
+[predict_label, accuracy_2nd, predict_prob] = svmpredict(test_label, K2 , model_p,'-b 1');
+precision_mean = [precision_mean;accuracy_2nd(1)];
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+K = hist_isect(train_vec, train_vec);
+% K = K_all(R_train_all, R_train_all);
+K1 = [(1:size(train_vec,1))', K];
+bestc=10;
+options=sprintf('-s 0 -t 4 -c %f -b 1',bestc);
+model_p = svmtrain(train_label,K1,options);
+k=hist_isect(test_vec,train_vec);
+% k = K_all(R_test_all, R_train_all);
+K2=[(1:size(test_vec,1))',k];
+[predict_label, accuracy, predict_prob] = svmpredict(test_label, K2 , model_p,'-b 1');
+acc = [acc;accuracy(1)];

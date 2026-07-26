@@ -1,0 +1,4 @@
+复制前面两步中生成的train_word_image_matrix.mat和test_word_image_matrix.mat到该路径下
+运行SVM文件夹中的ClassifierLDA_SVM.m进行svm分类得到test_result.txt.
+运行SVM文件夹中的SceneResult.m进行大幅影像的结果标注
+得到sceneFinalresult_overlap1可以用envi打开，设置为envi classification和类别数，展示结果

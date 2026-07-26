@@ -1,0 +1,6 @@
+Number of topics, =, 10
+Number of terms, =, 1001
+Number of training documents, =, 51000
+Topic sparsity: 10000/10010, =, 0.999001
+Document sparsity: 133506/510000, =, 0.261776
+Doc. compress rate: 133506/3506816, =, 0.038070

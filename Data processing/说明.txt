@@ -1,0 +1,5 @@
+compute_cosine.m 用于计算聚类后类别与真实地物之间的余弦相似度
+data_con.m 对最大后验概率进行判断归类  FSTM的dat文件转换为mat格式  土地覆盖信息和spe等信息拼接
+Save_data_forLDA.m 生成LDA格式文件
+seg_patch_hist.m 生成每个场景单元中的地物类别直方图
+exmple_ann 将大影像进行均匀格网划分

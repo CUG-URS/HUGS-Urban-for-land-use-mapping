@@ -1,0 +1,8 @@
+fstm  est  ap12  data/12class/training_data.dat  50
+
+fstm  inf  ap12  data/12class/testing_data.dat
+
+fstm  est  ap12  G:\Dancy\experimenal_results\单波段IKONOS结果\分块\04subset\train-data.dat 20
+
+fstm  inf  ap12  data/12class/LDA/wavelet/test-data.dat
+yyh.sbc365@gmail.com yyh19920106.1081
