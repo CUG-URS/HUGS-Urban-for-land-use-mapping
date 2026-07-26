@@ -1,58 +1,60 @@
-# MGEC 多源地理要素分类代码说明
+# MGEC Multi-source Geographic Element Classification Code
 
-## 简介
+## Overview
 
-本目录整理了 MGEC 研究中用于多源地理要素处理、特征表示、主题聚类、SVM 分类及大影像结果标注的代码。主体为 MATLAB 脚本，另包含 Fully Sparse Topic Models（FSTM）的 C 实现与可执行文件。
+This directory contains the MGEC research code for multi-source geographic-element processing, feature representation, topic clustering, SVM classification, and large-image result annotation. Most components are MATLAB scripts; the directory also includes a C implementation and executable of Fully Sparse Topic Models (FSTM).
 
-该代码为论文实验代码整理版，部分数据路径、训练数据和深度学习模型位于原实验环境中，不能直接一键复现。
+This is an archived research-code package. Some data paths, training data, and deep-learning models remain in the original experimental environment, so the workflow is not directly reproducible with a single command.
 
-## 主要模块
+## Main Components
 
-| 路径 / 文件 | 作用 |
+| Path / File | Purpose |
 | --- | --- |
-| `gradient.m` | 对图块影像生成自适应特征增强结果，供后续 ResNet 提取影像特征。ResNet 代码未包含在本目录。 |
-| `pro_GCN.m` | 处理多源地理数据，生成地理要素的共同体信息。 |
-| `proGAT.m` | 将共同体信息整理为 GAT 图模型输入。GAT 的训练代码未包含在本目录。 |
-| `process.m` | 读取、整理采样点信息及中间特征数据。 |
-| `fstm/` | Fully Sparse Topic Models（FSTM）源码、可执行文件、示例数据及运行参数。用于对两类特征进行主题聚类。 |
-| `SVM分类及大影像标注/` | SVM 训练、测试、精度评价、结果可视化与大影像标注脚本。 |
-| `数据处理代码/` | 生成 LDA/FSTM 输入数据及相关数据处理脚本。 |
+| `gradient.m` | Generates adaptively enhanced image patches for subsequent ResNet-based image-feature extraction. The ResNet code is not included. |
+| `pro_GCN.m` | Processes multi-source geographic data and produces community information for geographic elements. |
+| `proGAT.m` | Converts community information into inputs for a GAT graph model. The GAT training code is not included. |
+| `process.m` | Reads and organizes sample-point information and intermediate feature data. |
+| `fstm/` | Source code, executable, example data, and settings for Fully Sparse Topic Models (FSTM), used to cluster two types of features. |
+| SVM classification and large-image annotation directory | Scripts for SVM training, testing, accuracy assessment, result visualization, and large-image annotation. |
+| Data preprocessing directory | Scripts for generating LDA/FSTM input data and related preprocessing. |
 
-## 建议运行流程
+## Suggested Workflow
 
-1. 准备影像图块、采样点信息、标签和多源地理数据。
-2. 运行 `gradient.m` 生成增强图块，并在外部 ResNet 环境中提取影像特征。
-3. 运行 `pro_GCN.m` 和 `proGAT.m`，生成多源地理要素的共同体信息与图模型特征。
-4. 使用 `数据处理代码/Save_data_forLDA.m` 或 `SVM分类及大影像标注/Save_data_forLDA.m` 生成 FSTM 所需数据。
-5. 在 `fstm/` 中进行主题模型训练和测试推理，例如：
+1. Prepare image patches, sample-point information, labels, and multi-source geographic data.
+2. Run `gradient.m` to generate enhanced patches, then extract image features in an external ResNet environment.
+3. Run `pro_GCN.m` and `proGAT.m` to obtain geographic-element community information and graph-model features.
+4. Use either `Save_data_forLDA.m` script in the data preprocessing or SVM directory to prepare the data required by FSTM.
+5. Train and infer the topic model in `fstm/`, for example:
 
    ```text
-   fstm est <模型目录> <训练数据> <主题数>
-   fstm inf <模型目录> <测试数据>
+   fstm est <model-directory> <training-data> <number-of-topics>
+   fstm inf <model-directory> <testing-data>
    ```
 
-6. 将 FSTM 输出特征与其他特征拼接后，运行 `SVM分类及大影像标注/` 内对应区域的 `SVM_*.m` 脚本完成分类。
-7. 如需将图块分类结果还原到大影像，可参考 `SVM分类及大影像标注/SceneResult.m`。
+6. Combine the FSTM output with other features, then run an appropriate `SVM_*.m` script in the SVM directory for classification.
+7. To reconstruct patch-level predictions into a large-image result, refer to `SceneResult.m` in the SVM directory.
 
-## 环境与依赖
+## Requirements and Dependencies
 
-- MATLAB：用于数据处理、特征组织、SVM 分类和结果制图。
-- C 编译环境（可选）：若需重新编译 FSTM，可在 `fstm/` 下执行 `make`。
-- LIBSVM：代码目录已附带 `libsvm-3.20` 和 `libsvm-3.23` 的 MATLAB 接口。
-- 外部组件：ResNet 与 GAT 的完整代码不在本目录，需要使用原实验服务器或自行补充实现。
+- MATLAB for data processing, feature organization, SVM classification, and map generation.
+- A C build environment (optional) to rebuild FSTM by running `make` in `fstm/`.
+- LIBSVM MATLAB interfaces, included under `libsvm-3.20` and `libsvm-3.23`.
+- External components: the complete ResNet and GAT implementations are not included and must be obtained from the original experimental server or replaced with local implementations.
 
-## 使用前配置
+## Configuration Before Use
 
-- 多个 MATLAB 脚本中写有类似 `E:\\experiment\\...` 的绝对路径；请先改为本机的数据、模型和输出目录。
-- 请根据实际类别数、样本数量、影像分块尺寸和特征维数，核对脚本中的固定参数。
-- 本目录未附带完整原始数据、训练好的深度学习模型及全部中间结果；运行前需自行准备。
+- Several MATLAB scripts contain absolute paths such as `E:\\experiment\\...`; update them to local data, model, and output locations.
+- Check the fixed parameters in each script against the actual number of classes and samples, patch size, and feature dimensions.
+- The package does not include the complete raw data, trained deep-learning models, or all intermediate outputs; prepare these resources before running the workflow.
 
-## 入口参考
+## Useful Entry Points
 
-- `SVM分类及大影像标注/RUN.m`：调用 `Save_data_forLDA` 生成训练与测试阶段所需数据。
-- `fstm/程序执行命令.txt`：记录过往 FSTM 训练和推理命令示例。
-- `SVM分类及大影像标注/SceneResult.m`：处理含重叠图块的大影像分类结果并进行可视化。
+- `RUN.m` in the SVM directory: calls `Save_data_forLDA` to prepare training and testing data.
+- The FSTM command reference file: records previous FSTM training and inference command examples.
+- `SceneResult.m` in the SVM directory: processes and visualizes large-image results from overlapping image patches.
 
-## 许可说明
+The original directory and file names are retained on disk; the English descriptions above identify their roles.
 
-`fstm/` 中的 FSTM 代码附带其原始 GPL 许可说明；其余 MATLAB 脚本请仅在相关研究与授权范围内使用。
+## License Notice
+
+The FSTM component under `fstm/` retains its original GPL license notice. Use the remaining MATLAB scripts only within the applicable research and authorization scope.
