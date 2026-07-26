@@ -1,8 +1,8 @@
-# MGEC Multi-source Geographic Element Classification Code
+# HUGS-Urban-for-land-use-mapping
 
 ## Overview
 
-This directory contains the MGEC research code for multi-source geographic-element processing, feature representation, topic clustering, SVM classification, and large-image result annotation. Most components are MATLAB scripts; the directory also includes a C implementation and executable of Fully Sparse Topic Models (FSTM).
+This directory contains the code for multi-source geographic-element processing, feature representation, topic clustering, SVM classification, and large-image result annotation. Most components are MATLAB scripts; the directory also includes a C implementation and executable of Fully Sparse Topic Models (FSTM).
 
 This is an archived research-code package. Some data paths, training data, and deep-learning models remain in the original experimental environment, so the workflow is not directly reproducible with a single command.
 
